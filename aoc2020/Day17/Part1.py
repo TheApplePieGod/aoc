@@ -25,9 +25,9 @@ def expandBounds(x, y, z):
     global y20
     global z20
     if z == 1:
-        nextGrid.append(['.' * len(nextGrid[0][0])] * len(nextGrid[0]))
+        nextGrid.append(['.' * len(nextGrid[0][0]) for a in range(0, len(nextGrid[0]))])
     elif z == -1:
-        nextGrid.insert(0, ['.' * len(nextGrid[0][0])] * len(nextGrid[0]))
+        nextGrid.insert(0, ['.' * len(nextGrid[0][0]) for a in range(0, len(nextGrid[0]))])
         z20 += 1
     if y == 1:
         for i in range(0, len(nextGrid)):
@@ -48,42 +48,10 @@ def expandBounds(x, y, z):
 
 # expands bounds if necessary
 def isNeighborActive(x, y, z, xSlope, ySlope, zSlope):
-    xIndex = 0
-    yIndex = 0
-    zIndex = 0
-    wasOutOfBounds = False
-    while True:
-        xIndex = x0 + x + xSlope
-        yIndex = y0 + y + ySlope
-        zIndex = z0 + z + zSlope
-        boundsX = x20 + x + xSlope
-        boundsY = y20 + y + ySlope
-        boundsZ = z20 + z + zSlope
-
-        # we can do bounds checking at element 0 because it should expand uniformly
-        expandX = 0
-        expandY = 0
-        expandZ = 0
-        if zIndex >= len(grid): expandZ = 1
-        elif zIndex < 0: expandZ = -1
-        if yIndex >= len(grid[0]): expandY = 1
-        elif yIndex < 0: expandY = -1
-        if xIndex >= len(grid[0][0]): expandX = 1
-        elif xIndex < 0: expandX = -1
-
-        if expandX == 0 and expandY == 0 and expandZ == 0:
-            break
-        else:
-            # return '.' if the index should be out of range but has already been expanded
-            if len(nextGrid) > boundsZ >= 0 and len(nextGrid[0]) > boundsY >= 0 and len(nextGrid[0][0]) > boundsX >= 0:
-                return 0
-            wasOutOfBounds = True
-            expandBounds(expandX, expandY, expandZ) # expands for next grid
-
-    # if it was ever out of bounds, return '.' because that is what it would have been set to
-    if wasOutOfBounds:
-        return 0
-
+    xIndex = x0 + x + xSlope
+    yIndex = y0 + y + ySlope
+    zIndex = z0 + z + zSlope
+    
     if grid[zIndex][yIndex][xIndex] == '#':
         return 1
     else:
@@ -97,13 +65,13 @@ def finishCycle():
     global z0
     expandBounds(1, 1, 1)
     expandBounds(-1, -1, -1)
-    expandBounds(1, 1, 1)
-    expandBounds(-1, -1, -1)
     grid = nextGrid
     x0 = x20
     y0 = y20
     z0 = z20
 
+expandBounds(1, 1, 1)
+expandBounds(-1, -1, -1)
 finishCycle()
 cycle = 0
 while cycle < 6:

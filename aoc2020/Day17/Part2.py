@@ -66,43 +66,6 @@ def isNeighborActive(x, y, z, w, xSlope, ySlope, zSlope, wSlope):
     yIndex = y0 + y + ySlope
     zIndex = z0 + z + zSlope
     wIndex = w0 + w + wSlope
-    wasOutOfBounds = False
-    # while True:
-    #     xIndex = x0 + x + xSlope
-    #     yIndex = y0 + y + ySlope
-    #     zIndex = z0 + z + zSlope
-    #     wIndex = w0 + w + wSlope
-    #     boundsX = x20 + x + xSlope
-    #     boundsY = y20 + y + ySlope
-    #     boundsZ = z20 + z + zSlope
-    #     boundsW = w20 + w + wSlope
-
-    #     # we can do bounds checking at element 0 because it should expand uniformly
-    #     expandX = 0
-    #     expandY = 0
-    #     expandZ = 0
-    #     expandW = 0
-    #     if wIndex >= len(grid): expandW = 1
-    #     elif wIndex < 0: expandW = -1
-    #     if zIndex >= len(grid[0]): expandZ = 1
-    #     elif zIndex < 0: expandZ = -1
-    #     if yIndex >= len(grid[0][0]): expandY = 1
-    #     elif yIndex < 0: expandY = -1
-    #     if xIndex >= len(grid[0][0][0]): expandX = 1
-    #     elif xIndex < 0: expandX = -1
-
-    #     if expandX == 0 and expandY == 0 and expandZ == 0 and expandW == 0:
-    #         break
-    #     else:
-    #         # return '.' if the index should be out of range but has already been expanded
-    #         if len(nextGrid) > boundsW >= 0 and len(nextGrid[0]) > boundsZ >= 0 and len(nextGrid[0][0]) > boundsY >= 0 and len(nextGrid[0][0][0]) > boundsX >= 0:
-    #             return 0
-    #         wasOutOfBounds = True
-    #         expandBounds(expandX, expandY, expandZ, expandW) # expands for next grid
-
-    # if it was ever out of bounds, return '.' because that is what it would have been set to
-    if wasOutOfBounds:
-        return 0
 
     if grid[wIndex][zIndex][yIndex][xIndex] == '#':
         return 1
@@ -118,14 +81,14 @@ def finishCycle():
     global w0
     expandBounds(1, 1, 1, 1)
     expandBounds(-1, -1, -1, -1)
-    expandBounds(1, 1, 1, 1)
-    expandBounds(-1, -1, -1, -1)
     grid = nextGrid
     x0 = x20
     y0 = y20
     z0 = z20
     w0 = w20
 
+expandBounds(1, 1, 1, 1)
+expandBounds(-1, -1, -1, -1)
 finishCycle()
 cycle = 0
 while cycle < 6:
