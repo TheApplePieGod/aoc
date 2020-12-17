@@ -18,7 +18,6 @@ nearbyLines = lines[2].split('\n')
 for i in range(1, len(nearbyLines)):
     if nearbyLines[i] != '':
         numbers = [int(i) for i in nearbyLines[i].split(',')]
-        shouldBreak = False
         for number in numbers:
             found = False
             for field in fields:
