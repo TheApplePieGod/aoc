@@ -10,3 +10,9 @@ typedef uint64_t u64;
 typedef float_t f32;
 typedef double_t d64;
 typedef wchar_t wchar;
+
+struct vec2
+{
+    f32 x = 0.f;
+    f32 y = 0.f;
+};

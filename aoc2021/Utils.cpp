@@ -1,4 +1,4 @@
-#include "FilesystemUtils.h"
+#include "Utils.h"
 
 #include <iostream>
 #include <fstream>
@@ -49,6 +49,43 @@ std::vector<int> FilesystemUtils::ReadBinary(const std::string& path)
 
         output.emplace_back(finalNum);
     }
+
+    return output;
+}
+
+std::vector<std::string> StringUtils::Split(const std::string& str, const std::string& delim)
+{
+    std::vector<std::string> output;
+
+    std::string buffer;
+    for (char c : str)
+    {
+        buffer.push_back(c);
+        if (buffer.length() > delim.length())
+        {
+            if (strcmp(&buffer.back() - delim.length() + 1, delim.data()) == 0)
+            {
+                output.emplace_back(buffer.substr(0, buffer.length() - delim.length()));
+                buffer.clear();
+            }
+        }
+    }
+    if (!buffer.empty())
+        output.emplace_back(buffer);
+
+    return output;
+}
+
+// not performant but it's fine
+std::vector<int> StringUtils::SplitToInt(const std::string& str, const std::string& delim)
+{
+    auto split = Split(str, delim);
+
+    std::vector<int> output;
+    output.reserve(split.size());
+
+    for (auto elem : split)
+        output.emplace_back(stoi(elem));
 
     return output;
 }
