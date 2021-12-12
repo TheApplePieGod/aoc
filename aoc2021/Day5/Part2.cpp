@@ -43,7 +43,7 @@ int GetSlope(int from, int to)
 
 int main()
 {
-    Timer timer("Day5Part1");
+    Timer timer("Day5Part2");
     std::vector<std::string> lines = FilesystemUtils::ReadLines("../../../Day5/input.txt");
 
     // parse segments

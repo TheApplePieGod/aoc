@@ -8,7 +8,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 set(CMAKE_CXX_STANDARD 17)
 
 #file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS "*.cpp" "*.h")
-add_executable(AOC "Base.h" "Utils.h" "Utils.cpp" "Timer.h" "Day5/Part2.cpp")
+add_executable(AOC "Base.h" "Utils.h" "Utils.cpp" "Timer.h" "Day7/Part1.cpp")
 target_include_directories(
     AOC
     PUBLIC
