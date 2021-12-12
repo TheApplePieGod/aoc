@@ -3,6 +3,7 @@
 
 #include "Base.h"
 #include "Utils.h"
+#include "Timer.h"
 
 #define WIDTH 5
 #define HEIGHT 5
@@ -54,6 +55,7 @@ int CalcBoardSum(Board& board)
 
 int main()
 {
+    Timer timer("Day4Part1");
     std::vector<std::string> lines = FilesystemUtils::ReadLines("../../../Day4/input.txt");
 
     // parse
