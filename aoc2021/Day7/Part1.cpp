@@ -11,9 +11,24 @@ int main()
     std::vector<std::string> lines = FilesystemUtils::ReadLines("../../../Day7/input.txt");
     std::vector<int> positions = StringUtils::SplitToInt(lines[0], ",");
     
-    
+    int minPos = 99999999;
+    int maxPos = 0;
+    for (int pos : positions)
+    {
+        if (pos < minPos) minPos = pos;
+        if (pos > maxPos) maxPos = pos;
+    }
 
-    //std::cout << "Count: " << fish.size() << std::endl;
+    int minFuel = 99999999;
+    for (int i = minPos; i <= maxPos; i++)
+    {
+        int fuel = 0;
+        for (int pos : positions)
+            fuel += abs(pos - i);
+        if (fuel < minFuel) minFuel = fuel;
+    }
+
+    std::cout << "Min fuel: " << minFuel << std::endl;
 
     return 0;
 }

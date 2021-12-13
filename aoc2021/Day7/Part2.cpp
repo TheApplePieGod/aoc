@@ -1,34 +1,52 @@
 #include <iostream>
 #include <array>
+#include <unordered_map>
 
 #include "Base.h"
 #include "Utils.h"
 #include "Timer.h"
 
+std::unordered_map<u64, u64> sumCache;
+
+u64 sum(u64 num)
+{
+    if (sumCache.find(num) != sumCache.end())
+        return sumCache[num];
+
+    if (num == 1)
+        return 1;
+    if (num == 0)
+        return 0;
+
+    u64 val = num + sum(num - 1);;
+    sumCache[num] = val;
+    return val;
+}
+
 int main()
 {
-    Timer timer("Day6Part2");
-    std::vector<std::string> lines = FilesystemUtils::ReadLines("../../../Day6/input.txt");
-    std::vector<int> intitialCounts = StringUtils::SplitToInt(lines[0], ",");
-
-    std::array<u64, 9> dayCounts{}; // 0 1 2 3 4 5 6 7 8
-    for (int count : intitialCounts)
-        dayCounts[count]++;        
-
-    for (int day = 0; day < 256; day++)
+    Timer timer("Day7Part2");
+    std::vector<std::string> lines = FilesystemUtils::ReadLines("../../../Day7/input.txt");
+    std::vector<int> positions = StringUtils::SplitToInt(lines[0], ",");
+    
+    int minPos = 99999999;
+    int maxPos = 0;
+    for (int pos : positions)
     {
-        u64 add = dayCounts[0];
-        for (int i = 0; i < dayCounts.size() - 1; i++)
-            dayCounts[i] = dayCounts[i + 1];
-        dayCounts[6] += add;
-        dayCounts[8] = add;
+        if (pos < minPos) minPos = pos;
+        if (pos > maxPos) maxPos = pos;
     }
 
-    u64 total = 0;
-    for (u64 count : dayCounts)
-        total += count;
+    u64 minFuel = std::numeric_limits<u64>().max();
+    for (int i = minPos; i <= maxPos; i++)
+    {
+        u64 fuel = 0;
+        for (int pos : positions)
+            fuel += sum(abs(pos - i));
+        if (fuel < minFuel) minFuel = fuel;
+    }
 
-    std::cout << "Count: " << total << std::endl;
+    std::cout << "Min fuel: " << minFuel << std::endl;
 
     return 0;
 }
