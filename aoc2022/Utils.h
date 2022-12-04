@@ -1,18 +1,33 @@
 #pragma once
+#include "Base.h"
 
-#include <vector>
-#include <string>
+struct ReadObject
+{
+    std::vector<ReadObject> Children;
+    std::string Element;
+    int IntegerElement = 0;
+    std::string Delimiter;
+    
+    inline bool HasChildren() const { return !Children.empty(); }
+    inline bool HasElement() const { return !HasChildren(); }
+};
 
 struct FilesystemUtils
 {
-    static std::vector<int> ReadInts(const std::string& path);
-    static std::vector<std::string> ReadLines(const std::string& path);
-    static std::string ReadAsString(const std::string& path);
-    static std::vector<int> ReadBinary(const std::string& path);
+    static ReadObject Read(std::string_view path, const std::vector<std::string>& split);
+    static std::vector<int> ReadInts(std::string_view path);
+    static std::vector<std::string> ReadLines(std::string_view path);
+    static std::string ReadAsString(std::string_view path);
+    static std::vector<int> ReadBinary(std::string_view path);
 };
 
 struct StringUtils
 {
-    static std::vector<std::string> Split(const std::string& str, const std::string& delim);
-    static std::vector<int> SplitToInt(const std::string& str, const std::string& delim);
+    static std::vector<std::string> Split(std::string_view str, std::string_view delim);
+    static std::vector<int> SplitToInt(std::string_view str, std::string_view delim);
+    static int Find(std::string_view str, std::string_view find);
+    static bool Contains(std::string_view str, std::string_view find);
+    static int Find(std::string_view str, char find);
+    static bool Contains(std::string_view str, char find);
+    static std::string_view Substring(std::string_view str, u32 begin, u32 size = 999999);
 };

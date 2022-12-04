@@ -5,14 +5,13 @@
 
 int main(int argc, char** argv)
 {
-    std::vector<std::string> lines = FilesystemUtils::ReadLines("../../Day2/input.txt");
+    auto root = FilesystemUtils::Read("../../Day2/input.txt", { "\n", " " });
 
     int score = 0;
-    for (auto& line : lines)
+    for (auto& line : root.Children)
     {
-        auto data = StringUtils::Split(line, " ");
-        char left = data[0][0];
-        char right = data[1][0];
+        char left = line.Children[0].Element[0];
+        char right = line.Children[1].Element[0];
         
         if (right == 'X')
         {

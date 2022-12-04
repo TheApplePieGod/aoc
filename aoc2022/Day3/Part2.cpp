@@ -3,13 +3,6 @@
 #include "Base.h"
 #include "Utils.h"
 
-bool find(const std::string& str, char val)
-{
-    for (auto c : str)
-        if (c == val) return true;
-    return false;
-}
-
 int main(int argc, char** argv)
 {
     auto lines = FilesystemUtils::ReadLines("../../Day3/input.txt");
@@ -20,7 +13,7 @@ int main(int argc, char** argv)
         char same;
         for (auto c : lines[i])
         {
-            if (find(lines[i + 1], c) && find(lines[i + 2], c))
+            if (StringUtils::Contains(lines[i + 1], c) && StringUtils::Contains(lines[i + 2], c))
             {
                 same = c;
                 break;

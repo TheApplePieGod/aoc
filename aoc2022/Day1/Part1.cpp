@@ -5,19 +5,14 @@
 
 int main(int argc, char** argv)
 {
-    auto data = FilesystemUtils::ReadAsString("../../Day1/input.txt");
-    auto elves = StringUtils::Split(data, "\n\n");
+    auto root = FilesystemUtils::Read("../../Day1/input.txt", { "\n\n", "\n" });
     
     int max = 0;
-    for (auto& data : elves)
+    for (auto& group : root.Children)
     {
-        auto values = StringUtils::Split(data, "\n");
         int sum = 0;
-        for (auto& value : values)
-        {
-            int num = stoi(value);
-            sum += num;
-        }
+        for (auto& value : group.Children)
+            sum += value.IntegerElement;
         if (sum > max) max = sum;
     }
     

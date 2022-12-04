@@ -10,20 +10,19 @@ int main(int argc, char** argv)
     int score = 0;
     for (auto& line : lines)
     {
-        int start0 = 0;
-        int start1 = line.size() / 2;
-
-        while (line[start0] != line[start1])
+        auto str1 = StringUtils::Substring(line, 0, line.size() / 2);
+        auto str2 = StringUtils::Substring(line, line.size() / 2);
+        
+        char same;
+        for (char c : str1)
         {
-            start1++;
-            if (start1 >= line.size())
+            if (StringUtils::Contains(str2, c))
             {
-                start1 = line.size() / 2;
-                start0++;
+                same = c;
+                break;
             }
         }
         
-        char same = line[start0];
         if (same >= 'a' && same <= 'z')
             score += same - 'a' + 1;
         else
