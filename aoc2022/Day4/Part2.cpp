@@ -10,12 +10,9 @@ int main(int argc, char** argv)
     int total = 0;
     for (auto& pair : root.C)
     {
-        if (pair.C[0].C[0].I >= pair.C[1].C[0].I && pair.C[0].C[1].I <= pair.C[1].C[1].I)
-            total++;
-        else if (pair.C[1].C[0].I >= pair.C[0].C[0].I && pair.C[1].C[1].I <= pair.C[0].C[1].I)
+        if (pair.C[0].C[1].I >= pair.C[1].C[0].I && pair.C[0].C[0].I <= pair.C[1].C[1].I)
             total++;
     }
-
     
     std::cout << "Value: " << total << std::endl;
 

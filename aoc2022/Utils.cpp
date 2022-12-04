@@ -8,16 +8,16 @@ void ReadInternal(ReadObject& node, const std::vector<std::string>& split, u32 s
 {
     if (splitIndex >= split.size()) return;
 
-    node.Delimiter = split[splitIndex];
+    node.D = split[splitIndex];
     
-    auto values = StringUtils::Split(node.Element, split[splitIndex]);
+    auto values = StringUtils::Split(node.E, split[splitIndex]);
     for (auto& value : values)
     {
-        auto& elem = node.Children.emplace_back();
-        elem.Element = value;
+        auto& elem = node.C.emplace_back();
+        elem.E = value;
         if (value.size() < 15)
         {
-            try { elem.IntegerElement = stoi(elem.Element); }
+            try { elem.I = stoi(elem.E); }
             catch (std::exception e) {}
         }
         
@@ -28,7 +28,7 @@ void ReadInternal(ReadObject& node, const std::vector<std::string>& split, u32 s
 ReadObject FilesystemUtils::Read(std::string_view path, const std::vector<std::string>& split)
 {
     ReadObject root;
-    root.Element = ReadAsString(path);
+    root.E = ReadAsString(path);
     
     ReadInternal(root, split, 0);
     

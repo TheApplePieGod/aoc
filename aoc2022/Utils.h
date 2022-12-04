@@ -3,12 +3,12 @@
 
 struct ReadObject
 {
-    std::vector<ReadObject> Children;
-    std::string Element;
-    int IntegerElement = 0;
-    std::string Delimiter;
+    std::vector<ReadObject> C; // Children
+    std::string E; // Element
+    int I = 0; // Integer element
+    std::string D; // Delimiter
     
-    inline bool HasChildren() const { return !Children.empty(); }
+    inline bool HasChildren() const { return !C.empty(); }
     inline bool HasElement() const { return !HasChildren(); }
 };
 
