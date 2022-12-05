@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <string>
+#include <regex>
 
 typedef int8_t s8;
 typedef int16_t s16;

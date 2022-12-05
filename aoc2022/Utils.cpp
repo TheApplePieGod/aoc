@@ -16,10 +16,7 @@ void ReadInternal(ReadObject& node, const std::vector<std::string>& split, u32 s
         auto& elem = node.C.emplace_back();
         elem.E = value;
         if (value.size() < 15)
-        {
-            try { elem.I = stoi(elem.E); }
-            catch (std::exception e) {}
-        }
+            elem.I = atoi(value.c_str());
         
         ReadInternal(elem, split, splitIndex + 1);
     }
@@ -106,7 +103,8 @@ std::vector<std::string> StringUtils::Split(std::string_view str, std::string_vi
         {
             if (strcmp(&buffer.back() - delim.length() + 1, delim.data()) == 0)
             {
-                output.emplace_back(buffer.substr(0, buffer.length() - delim.length()));
+                auto trimmed = Trim(Substring(buffer, 0, buffer.length() - delim.length()));
+                output.emplace_back(trimmed);
                 buffer.clear();
             }
         }
@@ -175,4 +173,18 @@ bool StringUtils::Contains(std::string_view str, char find)
 std::string_view StringUtils::Substring(std::string_view str, u32 begin, u32 size)
 {
     return std::string_view(str.data() + begin, std::min(size, static_cast<u32>(str.size()) - begin));
+}
+
+std::string_view StringUtils::Trim(std::string_view str)
+{
+    if (str.empty()) return str;
+
+    int start = 0;
+    int end = str.size() - 1;
+    while ((str[start] == ' ' || str[start] == '\n' || str[start] == '\t' || str[start] == '\r') && start <= end)
+        start++;
+    while ((str[end] == ' ' || str[end] == '\n' || str[end] == '\t' || str[end] == '\r') && end >= 0)
+        end--;
+
+    return std::string_view(str.data() + start, end + 1);
 }

@@ -35,12 +35,14 @@ int main(int argc, char** argv)
         
         for (int i = 0; i < count; i++)
         {
-            char pop = stacks[from].back();
-            stacks[from].pop_back();
+            char pop = stacks[from][stacks[from].size() - count + i];
             stacks[to].push_back(pop);
         }
+
+        for (int i = 0; i < count; i++)
+            stacks[from].pop_back();
     }
-    
+
     std::string result;
     for (auto& stack : stacks)
         result.push_back(stack.back());

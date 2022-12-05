@@ -30,4 +30,5 @@ struct StringUtils
     static int Find(std::string_view str, char find);
     static bool Contains(std::string_view str, char find);
     static std::string_view Substring(std::string_view str, u32 begin, u32 size = 999999);
+    static std::string_view Trim(std::string_view str);
 };
