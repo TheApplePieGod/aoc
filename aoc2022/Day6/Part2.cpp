@@ -13,10 +13,10 @@ int main(int argc, char** argv)
     {
         index++;
         last.push_back(c);
-        if (last.size() > 4)
+        if (last.size() > 14)
             last.erase(last.begin());            
         
-        if (last.size() != 4) continue;
+        if (last.size() != 14) continue;
         
         bool b = false;
         for (int i = 0; i < last.size(); i++)

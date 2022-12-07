@@ -188,3 +188,18 @@ std::string_view StringUtils::Trim(std::string_view str)
 
     return std::string_view(str.data() + start, end + 1);
 }
+
+std::string StringUtils::Join(const std::vector<std::string>& strs, std::string delim)
+{
+    if (strs.empty()) return std::string();
+
+    std::string result = strs[0];
+    for (u32 i = 1; i < strs.size(); i++)
+    {
+        if (!delim.empty())
+            result += delim;
+        result += strs[i];
+    }
+    
+    return result;
+}
