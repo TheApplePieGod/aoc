@@ -3,6 +3,8 @@
 #include <vector>
 #include <string>
 #include <regex>
+#include <unordered_map>
+#include <unordered_set>
 
 typedef int8_t s8;
 typedef int16_t s16;
