@@ -33,3 +33,8 @@ struct StringUtils
     static std::string_view Trim(std::string_view str);
     static std::string Join(const std::vector<std::string>& strs, std::string delim);
 };
+
+struct MathUtils
+{
+    static int Abs(int val);
+};

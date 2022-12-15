@@ -203,3 +203,9 @@ std::string StringUtils::Join(const std::vector<std::string>& strs, std::string 
     
     return result;
 }
+
+int MathUtils::Abs(int val)
+{
+    if (val < 0) return -val;
+    return val;
+}

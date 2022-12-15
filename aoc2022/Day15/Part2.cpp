@@ -15,7 +15,6 @@ int main(int argc, char** argv)
 {
     auto root = FilesystemUtils::Read("../../Day15/input.txt", { "\n", " ", "=" });
     
-    u32 y = 2000000;
     std::unordered_map<u32, std::vector<Range>> grid;
     for (auto& line : root.C)
     {
@@ -27,8 +26,6 @@ int main(int argc, char** argv)
         int dist = MathUtils::Abs(sx - bx) + MathUtils::Abs(sy - by);
         for (int i = -dist; i <= dist; i++)
         {
-            if (i + sy != y) continue;
-
             int factor = (i + dist);
             if (i > 0) factor = (dist - i);
             auto& arr = grid[sy + i];
@@ -55,27 +52,33 @@ int main(int argc, char** argv)
         }
     }
     
-    int sum = 0;
-    auto& arr = grid[y];
-    // Remove duplicate intervals
-    for (int i = 0; i < arr.size(); i++)
+    u32 foundX, foundY = 0;
+    for (s64 y = 0; y < 4000000; y++)
     {
-        for (int j = 0; j < arr.size(); j++)
+        auto& arr = grid[y];
+        if (arr.empty()) continue;
+        for (s64 x = 0; x < 4000000; x++)
         {
-            if (i == j) continue;
-            if (arr[j].Begin >= arr[i].Begin && arr[j].End <= arr[i].End)
+            bool invalid = false;
+            for (auto& iv : arr)
             {
-                arr[j] = arr.back();
-                arr.pop_back();
-                j--;
+                if (x >= iv.Begin && x <= iv.End)
+                {
+                    invalid = true;
+                    x = iv.End;
+                    break;
+                }
             }
+            if (invalid) continue;
+            foundX = x;
+            foundY = y;
+            break;
         }
+        if (foundX != 0) break;
     }
-
-    for (auto& ran : arr)
-        sum += ran.End - ran.Begin + 1 - ran.Invalid;
     
-    std::cout << sum << std::endl;
+    // Have to compte the answer manually because overflow ;-;
+    std::cout << "X: " << foundX << ", Y: " << foundY << std::endl;
 
     return 0;
 }
